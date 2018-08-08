@@ -21,7 +21,8 @@ class Domino: CustomStringConvertible  {
     
     // Son las puntuaciones que tenemos en los extremos de las fichas dispuestas sobre la mesa.
     var extremosMesa: ParejaPuntos? {
-        
+        // TODO
+        return nil
     }
     
     // Inicializa la clase con los jugadores que van a jugar
