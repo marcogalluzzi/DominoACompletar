@@ -21,7 +21,7 @@ class Jugador: CustomStringConvertible {
        /*var puntos = 0
         fichas.forEach {puntos += $0.puntos.izq + $0.puntos.der}
         return puntos*/
-        return fichas.map {$0.puntos.izq + $0.puntos.der}.reduce(0, +)
+        return fichas.map{$0.puntos.izq + $0.puntos.der}.reduce(0, +)
     }
     
     // Constructor
