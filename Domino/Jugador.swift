@@ -18,12 +18,16 @@ class Jugador: CustomStringConvertible {
     
     // Calcula los puntos restantes de un jugador. Se llama al final de la partida.
     var puntosRestantes: Int {
-        
+       /*var puntos = 0
+        fichas.forEach {puntos += $0.puntos.izq + $0.puntos.der}
+        return puntos*/
+        return fichas.map {$0.puntos.izq + $0.puntos.der}.reduce(0, +)
     }
     
     // Constructor
     init(nombre: String) {
-        
+        self.nombre = nombre
+        fichas = []
     }
     
     // El jugador acepta una ficha, proveniente de la caja de fichas disponibles
