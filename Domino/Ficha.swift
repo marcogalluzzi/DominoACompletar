@@ -18,12 +18,12 @@ struct Ficha: CustomStringConvertible, Equatable {
     
     // Es la ficha un doble 6?
     var esDobleSeis: Bool {
-        
+        return puntos.izq == 6 && puntos.der == 6
     }
     
     // Es una ficha doble? (con la misma puntuación en los dos lados)
     var esDoble: Bool {
-        
+        return puntos.izq == puntos.der
     }
     
     // Inicialización
