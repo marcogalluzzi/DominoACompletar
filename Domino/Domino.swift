@@ -21,26 +21,34 @@ class Domino: CustomStringConvertible  {
     
     // Son las puntuaciones que tenemos en los extremos de las fichas dispuestas sobre la mesa.
     var extremosMesa: ParejaPuntos? {
-        // TODO
+        if let izquierda = mesa.first {
+            if let derecha = mesa.last {
+                return (izquierda.puntos.izq, derecha.puntos.der)
+            }
+        }
         return nil
     }
     
     // Inicializa la clase con los jugadores que van a jugar
     init(jugadores: [Jugador]) {
-        
-        
+        self.jugadores = jugadores
+
         // La mesa de juego está sin piezas al inicio
-        
+        self.mesa = []
         
         // Crear piezas del dominó
-        
+        self.caja = []
+        rellenarCaja()
     }
     
     // Rellena la caja con todas las fichas posibles
     func rellenarCaja() {
         assert(caja.isEmpty)
-        
-        
+        for ladoIzq in 0...6 {
+            for ladoDer in 0...ladoIzq {
+                caja.append(Ficha(puntos: (izq: ladoIzq, der: ladoDer)))
+            }
+        }
     }
     
     // Saca una ficha al azar desde la caja
