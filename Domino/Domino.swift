@@ -53,12 +53,28 @@ class Domino: CustomStringConvertible  {
     
     // Saca una ficha al azar desde la caja
     func sacar() -> Ficha? {
-        
+        //recorremos caja y cojemos una ficha al azar
+        if caja.isEmpty {
+            return nil
+        } else {
+            let numAleatorio = Int(arc4random_uniform(UInt32(caja.count)))
+            return caja.remove(at:numAleatorio)
+        }
     }
     
     // Colocar un jugada en la mesa
     func colocar(jugada: Jugada) {
-        
+        if mesa.isEmpty {
+            assert (jugada.lado == .centro)
+            mesa.append(jugada.ficha)
+        } else {
+            // TODO: añadir assert
+            if jugada.lado == .izquierda {
+                mesa.insert (jugada.ficha,at: 0)
+            } else {
+                mesa.append (jugada.ficha)
+            }
+        }
     }
     
     // Reparte las fichas entre los diferentes jugadores
@@ -99,7 +115,7 @@ class Domino: CustomStringConvertible  {
     
     // Devuelve el ganandor del juego. Será el que tiene menos puntos sumando los puntos de las fichas restantes.
     func ganador() -> Jugador? {
-
+        
     }
     
     // Devuelve el estado de las fichas en la mesa.
