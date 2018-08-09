@@ -32,15 +32,21 @@ class Jugador: CustomStringConvertible {
     
     // El jugador acepta una ficha, proveniente de la caja de fichas disponibles
     func coger(ficha: Ficha) {
-        
+        fichas.append(ficha)        
     }
     
+    // TODO: ¿ añadir clase estrategia ?
     func jugar(extremosMesa: ParejaPuntos?) -> Jugada? {
-        
         // Si hay fichas en la mesa
-        if let puntos = extremosMesa {
+        if let puntosExtremos = extremosMesa {
+            
+            // TODO: Cómo lograr la mejor jugada
+            //  - ¿ Cierro fichas ?
+            //  - Puntuación en caso de fin de jugada
+            //  - Historial de jugadas de cada uno para forzar siguente ficha
+            
             // Buscamos la primera ficha del jugador que contenga alguna de las puntaciones de los extremos de la mesa
-            if let indice = fichas.indices.first(where: {fichas[$0].contiene(puntos: puntos)}) {
+            if let indice = fichas.indices.first(where: {fichas[$0].contiene(puntos: puntosExtremos)}) {
                 
                 // Quitamos la ficha de entre las que tiene el jugador
                 let ficha = fichas.remove(at: indice)
@@ -48,7 +54,7 @@ class Jugador: CustomStringConvertible {
                 // Según con que extremo de la mesa y con qué lado de la ficha haremos la jugada
                 // - La ficha puede estar girada o no
                 // - Se puede colocar la ficha a la izquierda o derecha de la mesa
-                switch puntos {
+                switch puntosExtremos {
                 case (ficha.puntos.izq, _):
                     return Jugada(ficha: ficha.girada, lado: .izquierda)
                 case (ficha.puntos.der, _):
@@ -60,11 +66,19 @@ class Jugador: CustomStringConvertible {
                 default:
                     return nil
                 }
-                
             }
         }
         // Si no hay fichas en la mesa
         else {
+            /*
+            var indice: Int?
+            for i in 0..<fichas.count {
+                if (fichas[i].esDobleSeis) {
+                    indice = i
+                    break
+                }
+            }
+            */
             if let indice = fichas.indices.first(where: {fichas[$0].esDobleSeis}) {
                 // Hemos encontrado el doble 6
                 let ficha = fichas.remove(at: indice)
@@ -72,10 +86,9 @@ class Jugador: CustomStringConvertible {
             } else if let indice = fichas.indices.first(where: {fichas[$0].esDoble}) {
                 // Hemos encontrado otra ficha doble
                 let ficha = fichas.remove(at: indice)
-                return Jugada(ficha: ficha, lado: .centro)
+                return Jugada(ficha: ficha, lado: Lado.centro)
             }
         }
-        
         // No se ha encontrado ficha que corresponda con los extremos de las fichas en la mesa
         return nil
     }
