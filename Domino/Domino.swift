@@ -31,6 +31,7 @@ class Domino: CustomStringConvertible  {
     
     // Inicializa la clase con los jugadores que van a jugar
     init(jugadores: [Jugador]) {
+        assert(jugadores.count <= 4)
         self.jugadores = jugadores
 
         // La mesa de juego está sin piezas al inicio
@@ -79,7 +80,13 @@ class Domino: CustomStringConvertible  {
     
     // Reparte las fichas entre los diferentes jugadores
     func repartir() {
-
+        for jugador in jugadores{
+            for _ in 0...6 {
+                if let ficha = sacar() {
+                    jugador.coger(ficha: ficha)
+                }
+            }
+        }
     }
     
     // Al volver a jugar hay que quitar las fichas restantes a los jugadores
