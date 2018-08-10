@@ -13,29 +13,8 @@ import Foundation
  */
 struct EstrategiaJuegoSimple: EstrategiaJuego {
 
-    func jugarConMesa(fichas: [Ficha], mesa: [Ficha]) -> Jugada? {
-        let extremosMesa = extremos(mesa: mesa)!
-        
-        if let ficha = fichas.first(where: {$0.contiene(puntos: extremosMesa)}) {
-        
-            // Según con que extremo de la mesa y con qué lado de la ficha haremos la jugada
-            // - La ficha puede estar girada o no
-            // - Se puede colocar la ficha a la izquierda o derecha de la mesa
-            switch extremosMesa {
-            case (ficha.puntos.izq, _):
-                return Jugada(ficha: ficha.girada, lado: .izquierda)
-            case (ficha.puntos.der, _):
-                return Jugada(ficha: ficha, lado: .izquierda)
-            case (_, ficha.puntos.izq):
-                return Jugada(ficha: ficha, lado: .derecha)
-            case (_, ficha.puntos.der):
-                return Jugada(ficha: ficha.girada, lado: .derecha)
-            default:
-                return nil
-            }
-        }
-        
-        return nil
+    func elegirFicha(con fichas: [Ficha], en mesa: [Ficha], segun extremos: ParejaPuntos) -> Ficha {
+        return fichas[0]
     }
 
 }

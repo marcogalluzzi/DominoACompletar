@@ -57,46 +57,17 @@ class Jugador: CustomStringConvertible {
         return false
     }
     
-    // TODO: ¿ añadir clase estrategia ?
     func jugar(con mesa: [Ficha]) -> Jugada? {
-        // Si hay fichas en la mesa
-        if mesa.count > 0 {
+
+        if let jugada = estrategia.jugar(con: fichas, en: mesa) {
+            let eliminadaFicha = soltar(ficha: jugada.ficha)
             
-            if let jugada = estrategia.jugarConMesa(fichas: fichas, mesa: mesa) {
-                let eliminadaFicha = soltar(ficha: jugada.ficha)
-                
-                // Comprobamos que la estrategia ha devuelto una ficha existente
-                assert(eliminadaFicha, "¡La estrategia ha devuelto una ficha que el jugador no tiene! -> \(jugada.ficha)")
-                return jugada
-            }
+            // Comprobamos que la estrategia ha devuelto una ficha existente
+            assert(eliminadaFicha, "¡La estrategia ha devuelto una ficha que el jugador no tiene! -> \(jugada.ficha)")
             
-            // Comprobamos que la estrategia no ha pasado por alto una ficha
-            // que se pueda poner en la mesa
-            let fichaOlvidada = fichas.first(where: {$0.contiene(puntos: estrategia.extremos(mesa: mesa)!)})
-            assert(fichaOlvidada == nil, "¡La estrategia ha dado una ficha que se puede colocar en la mesa! -> \(fichaOlvidada!)")
-            return nil
+            return jugada
         }
-        // Si no hay fichas en la mesa
-        else {
-            /*
-            var indice: Int?
-            for i in 0..<fichas.count {
-                if (fichas[i].esDobleSeis) {
-                    indice = i
-                    break
-                }
-            }
-            */
-            if let indice = fichas.indices.first(where: {fichas[$0].esDobleSeis}) {
-                // Hemos encontrado el doble 6
-                let ficha = fichas.remove(at: indice)
-                return Jugada(ficha: ficha, lado: .centro)
-            } else if let indice = fichas.indices.first(where: {fichas[$0].esDoble}) {
-                // Hemos encontrado otra ficha doble
-                let ficha = fichas.remove(at: indice)
-                return Jugada(ficha: ficha, lado: Lado.centro)
-            }
-        }
+
         // No se ha encontrado ficha que corresponda con los extremos de las fichas en la mesa
         return nil
     }
