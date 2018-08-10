@@ -63,11 +63,17 @@ class Jugador: CustomStringConvertible {
         if mesa.count > 0 {
             
             if let jugada = estrategia.jugarConMesa(fichas: fichas, mesa: mesa) {
-                let fichaEliminada = soltar(ficha: jugada.ficha)
-                assert(fichaEliminada)
+                let eliminadaFicha = soltar(ficha: jugada.ficha)
+                
+                // Comprobamos que la estrategia ha devuelto una ficha existente
+                assert(eliminadaFicha, "¡La estrategia ha devuelto una ficha que el jugador no tiene! -> \(jugada.ficha)")
                 return jugada
             }
             
+            // Comprobamos que la estrategia no ha pasado por alto una ficha
+            // que se pueda poner en la mesa
+            let fichaOlvidada = fichas.first(where: {$0.contiene(puntos: estrategia.extremos(mesa: mesa)!)})
+            assert(fichaOlvidada == nil, "¡La estrategia ha dado una ficha que se puede colocar en la mesa! -> \(fichaOlvidada!)")
             return nil
         }
         // Si no hay fichas en la mesa
