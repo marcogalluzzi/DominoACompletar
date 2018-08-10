@@ -16,6 +16,9 @@ class Jugador: CustomStringConvertible {
     // El nombre del jugador, para diferenciarlo de los demás
     var nombre: String
     
+    // Estrategia de juego a utilizar
+    let estrategia: EstrategiaJuego
+    
     // Calcula los puntos restantes de un jugador. Se llama al final de la partida.
     var puntosRestantes: Int {
        /*var puntos = 0
@@ -25,10 +28,12 @@ class Jugador: CustomStringConvertible {
     }
     
     // Constructor
-    init(nombre: String) {
+    init(nombre: String, estrategia: EstrategiaJuego) {
         self.nombre = nombre
+        self.estrategia = estrategia
         fichas = []
     }
+    
     func puntosFichaDobleMasAlta() -> Int? {
         /*var puntos = -1
         for ficha in fichas {
@@ -44,38 +49,26 @@ class Jugador: CustomStringConvertible {
         fichas.append(ficha)        
     }
     
+    func soltar(ficha: Ficha) -> Bool {
+        if let indice = fichas.indices.first(where: {fichas[$0] == ficha}) {
+            fichas.remove(at: indice)
+            return true
+        }
+        return false
+    }
+    
     // TODO: ¿ añadir clase estrategia ?
-    func jugar(extremosMesa: ParejaPuntos?) -> Jugada? {
+    func jugar(con mesa: [Ficha]) -> Jugada? {
         // Si hay fichas en la mesa
-        if let puntosExtremos = extremosMesa {
+        if mesa.count > 0 {
             
-            // TODO: Cómo lograr la mejor jugada
-            //  - ¿ Cierro fichas ?
-            //  - Puntuación en caso de fin de jugada
-            //  - Historial de jugadas de cada uno para forzar siguente ficha
-            
-            // Buscamos la primera ficha del jugador que contenga alguna de las puntaciones de los extremos de la mesa
-            if let indice = fichas.indices.first(where: {fichas[$0].contiene(puntos: puntosExtremos)}) {
-                
-                // Quitamos la ficha de entre las que tiene el jugador
-                let ficha = fichas.remove(at: indice)
-                
-                // Según con que extremo de la mesa y con qué lado de la ficha haremos la jugada
-                // - La ficha puede estar girada o no
-                // - Se puede colocar la ficha a la izquierda o derecha de la mesa
-                switch puntosExtremos {
-                case (ficha.puntos.izq, _):
-                    return Jugada(ficha: ficha.girada, lado: .izquierda)
-                case (ficha.puntos.der, _):
-                    return Jugada(ficha: ficha, lado: .izquierda)
-                case (_, ficha.puntos.izq):
-                    return Jugada(ficha: ficha, lado: .derecha)
-                case (_, ficha.puntos.der):
-                    return Jugada(ficha: ficha.girada, lado: .derecha)
-                default:
-                    return nil
-                }
+            if let jugada = estrategia.jugarConMesa(fichas: fichas, mesa: mesa) {
+                let fichaEliminada = soltar(ficha: jugada.ficha)
+                assert(fichaEliminada)
+                return jugada
             }
+            
+            return nil
         }
         // Si no hay fichas en la mesa
         else {

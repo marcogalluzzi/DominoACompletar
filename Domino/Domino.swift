@@ -20,14 +20,14 @@ class Domino: CustomStringConvertible  {
     var jugadores: [Jugador]
     
     // Son las puntuaciones que tenemos en los extremos de las fichas dispuestas sobre la mesa.
-    var extremosMesa: ParejaPuntos? {
+    /*var extremosMesa: ParejaPuntos? {
         if let izquierda = mesa.first {
             if let derecha = mesa.last {
                 return (izquierda.puntos.izq, derecha.puntos.der)
             }
         }
         return nil
-    }
+    }*/
     
     // Inicializa la clase con los jugadores que van a jugar
     init(jugadores: [Jugador]) {
@@ -121,7 +121,7 @@ class Domino: CustomStringConvertible  {
         var siguiente = primerJugador
         while (!jugadores.contains{$0.fichas.isEmpty}) && pasan != jugadores.count {
             let jugador = jugadores[siguiente]
-            if let jugada = jugador.jugar(extremosMesa: extremosMesa) {
+            if let jugada = jugador.jugar(con: mesa) {
                 colocar(jugada: jugada)
                 print("\(jugador.nombre) - \(jugada) - \(self)")
                 pasan =  0
