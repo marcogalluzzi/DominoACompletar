@@ -29,7 +29,16 @@ class Jugador: CustomStringConvertible {
         self.nombre = nombre
         fichas = []
     }
-    
+    func puntosFichaDobleMasAlta() -> Int? {
+        /*var puntos = -1
+        for ficha in fichas {
+            if ficha.esDoble && ficha.puntos.der > puntos {
+                puntos = ficha.puntos.der
+            }
+        }
+        return puntos == -1 ? nil : puntos*/
+        return fichas.filter{$0.esDoble}.max(by: {$0.puntos.der > $1.puntos.der})?.puntos.der
+    }
     // El jugador acepta una ficha, proveniente de la caja de fichas disponibles
     func coger(ficha: Ficha) {
         fichas.append(ficha)        

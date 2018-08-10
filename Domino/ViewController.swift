@@ -24,14 +24,14 @@ class ViewController: UIViewController {
         domino.repartir()
         
         // El jugador que empieza es el que tiene el doble 6
-        domino.ordenarJugadores()
+        let primerJugador = domino.buscarPrimerJugador()
         
         print("\nEl estado inicial de los jugadores es:")
         domino.jugadores.forEach{print($0)}
         
         // Los jugadores van jugando por turnos hasta que uno termine sus fichas o todos pasan
         print("\nLa partida:")
-        domino.jugar()
+        domino.jugar(primerJugador: primerJugador)
         
         print("\nEl estado final de los jugadores es:")
         domino.jugadores.forEach{print($0)}

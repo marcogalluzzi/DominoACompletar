@@ -97,15 +97,28 @@ class Domino: CustomStringConvertible  {
     }
     
     // Ordena los jugadores según el que tenga el que tenga el doble 6
-    func ordenarJugadores() {
-
+    func buscarPrimerJugador() -> Int {
+      /*
+        var maxPuntos = -1
+        var maxIndice = 0
+        for (indice, jugador) in jugadores.enumerated() {
+            if let maxPuntosJugador = jugador.puntosFichaDobleMasAlta(){
+                if maxPuntosJugador > maxPuntos {
+                    maxPuntos = maxPuntosJugador
+                    maxIndice = indice
+                }
+            }
+        }
+        return maxIndice
+        */
+        return jugadores.indices.map{($0,jugadores[$0].puntosFichaDobleMasAlta() ?? -1)}.max(by: {$0.1>$1.1})?.0 ?? 0
     }
     
     // Hace jugar a los jugadores hasta que alguien acabe sus fichas o todos los jugadores hayan pasado,
     // es decir que no tengan fichas para colocar en la mesa.
-    func jugar() {
+    func jugar(primerJugador: Int) {
         var pasan = 0
-        var siguiente = 0
+        var siguiente = primerJugador
         while (!jugadores.contains{$0.fichas.isEmpty}) && pasan != jugadores.count {
             let jugador = jugadores[siguiente]
             if let jugada = jugador.jugar(extremosMesa: extremosMesa) {
@@ -122,7 +135,11 @@ class Domino: CustomStringConvertible  {
     
     // Devuelve el ganandor del juego. Será el que tiene menos puntos sumando los puntos de las fichas restantes.
     func ganador() -> Jugador? {
-        
+        if let jugadorSinFichas = jugadores.first (where:{ $0.fichas.count == 0 }) {
+            return jugadorSinFichas
+        } else {
+            return jugadores.min(by: {$0.puntosRestantes < $1.puntosRestantes})
+        }
     }
     
     // Devuelve el estado de las fichas en la mesa.
