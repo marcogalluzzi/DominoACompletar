@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C79D655211DBD450035785C /* EstrategiaJuegoSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79D653211DBD450035785C /* EstrategiaJuegoSimple.swift */; };
+		1C79D656211DBD450035785C /* EstrategiaJuego.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79D654211DBD450035785C /* EstrategiaJuego.swift */; };
 		A90FFC9E2119010200EBA83E /* Jugada.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90FFC9D2119010200EBA83E /* Jugada.swift */; };
 		A95BBB09211753B000F918AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95BBB08211753B000F918AB /* AppDelegate.swift */; };
 		A95BBB0B211753B000F918AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95BBB0A211753B000F918AB /* ViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C79D653211DBD450035785C /* EstrategiaJuegoSimple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstrategiaJuegoSimple.swift; sourceTree = "<group>"; };
+		1C79D654211DBD450035785C /* EstrategiaJuego.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstrategiaJuego.swift; sourceTree = "<group>"; };
 		A90FFC9D2119010200EBA83E /* Jugada.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jugada.swift; sourceTree = "<group>"; };
 		A95BBB05211753B000F918AB /* Domino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Domino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95BBB08211753B000F918AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		A95BBB07211753B000F918AB /* Domino */ = {
 			isa = PBXGroup;
 			children = (
+				1C79D654211DBD450035785C /* EstrategiaJuego.swift */,
+				1C79D653211DBD450035785C /* EstrategiaJuegoSimple.swift */,
 				A95BBB08211753B000F918AB /* AppDelegate.swift */,
 				A95BBB0A211753B000F918AB /* ViewController.swift */,
 				A95BBB0C211753B000F918AB /* Main.storyboard */,
@@ -148,7 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A95BBB0B211753B000F918AB /* ViewController.swift in Sources */,
+				1C79D655211DBD450035785C /* EstrategiaJuegoSimple.swift in Sources */,
 				A95BBB1D21176D1A00F918AB /* Ficha.swift in Sources */,
+				1C79D656211DBD450035785C /* EstrategiaJuego.swift in Sources */,
 				A95BBB1B211753C300F918AB /* Domino.swift in Sources */,
 				A90FFC9E2119010200EBA83E /* Jugada.swift in Sources */,
 				A95BBB09211753B000F918AB /* AppDelegate.swift in Sources */,
