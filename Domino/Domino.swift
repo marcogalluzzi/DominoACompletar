@@ -111,7 +111,7 @@ class Domino: CustomStringConvertible  {
         }
         return maxIndice
         */
-        return jugadores.indices.map{($0,jugadores[$0].puntosFichaDobleMasAlta() ?? -1)}.max(by: {$0.1>$1.1})?.0 ?? 0
+        return jugadores.indices.map{($0,jugadores[$0].puntosFichaDobleMasAlta() ?? -1)}.max{$0.1<$1.1}?.0 ?? 0
     }
     
     // Hace jugar a los jugadores hasta que alguien acabe sus fichas o todos los jugadores hayan pasado,

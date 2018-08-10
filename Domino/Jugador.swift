@@ -37,7 +37,7 @@ class Jugador: CustomStringConvertible {
             }
         }
         return puntos == -1 ? nil : puntos*/
-        return fichas.filter{$0.esDoble}.max(by: {$0.puntos.der > $1.puntos.der})?.puntos.der
+        return fichas.filter{$0.esDoble}.max{$0.puntos.der < $1.puntos.der}?.puntos.der
     }
     // El jugador acepta una ficha, proveniente de la caja de fichas disponibles
     func coger(ficha: Ficha) {
