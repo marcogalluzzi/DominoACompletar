@@ -11,14 +11,14 @@ import Foundation
 protocol EstrategiaJuego {
     
     /// Elige una ficha a jugar de sólo entre las fichas cuya puntuación coincide con alguno
-    /// de los extremos de la mesa.
+    /// de los extremos de la mesa. También indica en que lado de la mesa hay que jugarla.
     ///
     /// - Parameters:
     ///   - con: las fichas que encajan con alguno de los extremos de la mesa
     ///   - en: todas la fichas dispuestas sobre la mesa
     ///   - segun: los puntos de las fichas en los extremos de la mesa
-    /// - Returns: la ficha a jugar
-    func elegirFicha(con fichas: [Ficha], en mesa: [Ficha], segun extremos: ParejaPuntos) -> Ficha
+    /// - Returns: la mejor jugada
+    func elegirJugada(con fichas: [Ficha], en mesa: [Ficha], segun extremos: ParejaPuntos) -> Jugada?
 
 }
 
@@ -31,8 +31,10 @@ extension EstrategiaJuego {
             let fichasPosibles = filtrarFichasPosibles(con: fichas, segun: extremosMesa)
             
             if !fichasPosibles.isEmpty {
-                let ficha = elegirFicha(con: fichasPosibles, en: mesa, segun: extremosMesa)
-                return crearJugada(con: ficha, segun: extremosMesa)
+                let jugada = elegirJugada(con: fichasPosibles, en: mesa, segun: extremosMesa)
+                
+                assert(jugada != nil, "Hay fichas disponibles para jugar pero no se ha devuelto ninguna jugada.")
+                return jugada
             }
             
         } else if let ficha = fichas.first(where: {$0.esDobleSeis}) {
@@ -49,25 +51,6 @@ extension EstrategiaJuego {
         return nil
     }
     
-    /*
-     */
-    /// Se crea una jugada según con que extremo de la mesa y con qué lado de la ficha haremos la jugada
-    /// - La ficha puede estar girada o no
-    /// - Se puede colocar la ficha a la izquierda o derecha de la mesa
-    func crearJugada(con ficha: Ficha, segun extremos: ParejaPuntos) -> Jugada? {
-        switch extremos {
-        case (ficha.puntos.izq, _):
-            return Jugada(ficha: ficha.girada, lado: .izquierda)
-        case (ficha.puntos.der, _):
-            return Jugada(ficha: ficha, lado: .izquierda)
-        case (_, ficha.puntos.izq):
-            return Jugada(ficha: ficha, lado: .derecha)
-        case (_, ficha.puntos.der):
-            return Jugada(ficha: ficha.girada, lado: .derecha)
-        default:
-            return nil
-        }
-    }
     
     func filtrarFichasPosibles(con fichas: [Ficha], segun extremosMesa: ParejaPuntos) -> [Ficha] {
         return fichas.filter{$0.contiene(puntos: extremosMesa)}
