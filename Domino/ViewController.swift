@@ -13,12 +13,14 @@ class ViewController: UIViewController {
     func pruebaJugarAlDomino() {
         
         let estrategiaSimple = EstrategiaJuegoSimple()
+        let estrategiaJuegoCerrar = EstrategiaJuegoCerrar()
+        let estrategiaJuegoDobles = EstrategiaJuegoDoubles()
         
         // Vamos a empezar a jugar
         let domino = Domino(jugadores: [
             Jugador(nombre: "Marco", estrategia: estrategiaSimple),
-            Jugador(nombre: "Carla", estrategia: estrategiaSimple),
-            Jugador(nombre: "Julieta", estrategia: estrategiaSimple),
+            Jugador(nombre: "Carla", estrategia: estrategiaJuegoCerrar),
+            Jugador(nombre: "Julieta", estrategia: estrategiaJuegoDobles),
             Jugador(nombre: "Leonardo", estrategia: estrategiaSimple)
             ])
         
